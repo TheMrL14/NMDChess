@@ -1,4 +1,4 @@
-//hier brandt de lamp
+//hier gebeurt de server shit
 
 
 const express = require('express')
