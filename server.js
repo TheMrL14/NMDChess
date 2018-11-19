@@ -15,8 +15,20 @@ app.get('/app', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/app.js'));
 });
 
+app.get('/indexJS', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/index.js'));
+});
+
 app.get('/settings', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/settings.json'));
+});
+
+app.get('/style', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/index.css'));
+});
+
+app.get('/chat', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/test.html'));
 });
 
 
