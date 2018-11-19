@@ -12,5 +12,14 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheMrL14/NMDChess.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TheMrL14/NMDChess/issues"
+  },
+  "homepage": "https://github.com/TheMrL14/NMDChess#readme"
 }
