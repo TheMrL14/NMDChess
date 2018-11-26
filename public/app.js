@@ -15,9 +15,6 @@ settingrequest.send();
 init();
 
 function init() {
-
-
-
   var myp5 = new p5(s, sets.chessId);
   console.log("done");
 }
@@ -26,7 +23,8 @@ function init() {
 var s = function(sketch) {
   const settings = sets.sketch;
   var rectWidth = 50;
-  var chessboard = []
+  var chessboard = [];
+  var pawns = [];
 
   sketch.setup = function() {
     sketch.createCanvas(640, 480);
@@ -39,17 +37,25 @@ var s = function(sketch) {
         } else {
           col = 255;
         }
-        var chessrect = new ChessRect(sketch.createVector(x, y), rectWidth, col);
+        var chessrect = new ChessRect(sketch.createVector(x, y), col);
         chessboard.push(chessrect)
       }
     }
     console.log(chessboard)
+
+    var newPawn = new pawn(sketch.createVector(5, 1), "gold", "queen");
+    pawns.push(newPawn);
   }
 
 
   sketch.draw = function() {
     for (var i = 0; i < chessboard.length; i++) {
       chessboard[i].show();
+
+    }
+
+    for (var i = 0; i < pawns.length; i++) {
+      pawns[i].show();
 
     }
   }
@@ -61,9 +67,8 @@ var s = function(sketch) {
     }
   }
 
-  function ChessRect(pos, rectWidth, color) {
+  function ChessRect(pos, color) {
     this.pos = pos;
-    this.rectWidth = rectWidth;
     this.color = color;
     this.show = function() {
       sketch.fill(this.color);
@@ -88,6 +93,17 @@ var s = function(sketch) {
         this.color = color;
         sketch.fill(color);
       }
+    }
+  }
+
+  function pawn(pos, color, type) {
+    this.pos = pos;
+    this.color = color;
+    this.type = type;
+
+    this.show = function() {
+      sketch.fill(this.color);
+      sketch.ellipse(this.pos.x * rectWidth, this.pos.y * rectWidth, 20, 20)
     }
   }
 }
