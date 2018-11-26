@@ -1,10 +1,16 @@
 //hier gebeurt de server shit
 
 
-const express = require('express')
+
+
+const express = require('express');
+const io = require('socket.io-client');
 const app = express()
 const port = 3000
 const path = require("path");
+const socket = io.connect('ws://nmd18.herokuapp.com', {
+  reconnect: true
+});
 
 
 app.get('/', function(req, res) {
@@ -13,6 +19,10 @@ app.get('/', function(req, res) {
 
 app.get('/app', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/app.js'));
+});
+
+app.get('/dataStreamJS', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/dataStream.js'));
 });
 
 app.get('/indexJS', function(req, res) {
@@ -35,6 +45,11 @@ app.get('/chat', function(req, res) {
 let init = () => {
   app.listen(port, () => console.log(`App listening on port ${port}!`));
 
+
 };
 
 init();
+socket.emit("clientvalue", {
+  name: "titert",
+  value: 555
+})

@@ -16,6 +16,8 @@ init();
 
 function init() {
 
+
+
   var myp5 = new p5(s, sets.chessId);
   console.log("done");
 }
@@ -73,6 +75,15 @@ var s = function(sketch) {
       if (distance < rectWidth / 2) {
         this.color = 100;
         sketch.fill(color);
+        var socket = io.connect('ws://nmd18.herokuapp.com');
+        socket.emit("clientvalue", {
+          name: "titert",
+          value: "x:" +
+            this.pos.x.toString() +
+            "y:" +
+            this.pos.y.toString()
+        })
+
       } else {
         this.color = color;
         sketch.fill(color);
