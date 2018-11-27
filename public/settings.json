@@ -1,7 +1,10 @@
 {
     "chessId": "chessBoard",
     "sketch": {
-      "backgroundColor" : 51
+      "socketURL": "ws://nmd18.herokuapp.com",
+      "rectWidth" : 50,
+      "chessRow": 8,
+      "selectedRectColor": 100
     }
 
 }

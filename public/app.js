@@ -22,20 +22,20 @@ function init() {
 
 var s = function(sketch) {
   const settings = sets.sketch;
-  var rectWidth = 50;
+  var rectWidth = settings.rectWidth;
   var chessboard = [];
   var pawns = [];
 
   sketch.setup = function() {
     sketch.createCanvas(640, 480);
     sketch.rectMode(RADIUS);
-    for (var y = 1; y <= 8; y++) {
-      for (var x = 1; x <= 8; x++) {
-        var col = 0;
+    for (var y = 1; y <= settings.chessRow; y++) {
+      for (var x = 1; x <= settings.chessRow; x++) {
+        var col;
         if ((x + y + 1) % 2 == 0) {
-          col = 0;
+          col = "white";
         } else {
-          col = 255;
+          col = "black";
         }
         var chessrect = new ChessRect(sketch.createVector(x, y), col);
         chessboard.push(chessrect)
@@ -78,9 +78,9 @@ var s = function(sketch) {
       var distance = sketch.dist(px, py, this.pos.x * rectWidth, this.pos.y * rectWidth);
 
       if (distance < rectWidth / 2) {
-        this.color = 100;
+        this.color = settings.selectedRectColor;
         sketch.fill(color);
-        var socket = io.connect('ws://nmd18.herokuapp.com');
+        var socket = io.connect(settings.socketURL);
         socket.emit("clientvalue", {
           name: "titert",
           value: "x:" +
