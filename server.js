@@ -6,7 +6,7 @@
 const express = require('express');
 const io = require('socket.io-client');
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000;
 const path = require("path");
 const socket = io.connect('ws://nmd18.herokuapp.com', {
   reconnect: true
