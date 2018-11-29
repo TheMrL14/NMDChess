@@ -51,5 +51,8 @@ let init = () => {
 init();
 socket.emit("clientvalue", {
   name: "titert",
-  value: 555
+  value: "x:" +
+    1 +
+    "y:" +
+    1
 })

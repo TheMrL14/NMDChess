@@ -80,14 +80,8 @@ var s = function(sketch) {
       if (distance < rectWidth / 2) {
         this.color = settings.selectedRectColor;
         sketch.fill(color);
-        var socket = io.connect(settings.socketURL);
-        socket.emit("clientvalue", {
-          name: "titert",
-          value: "x:" +
-            this.pos.x.toString() +
-            "y:" +
-            this.pos.y.toString()
-        })
+
+
 
       } else {
         this.color = color;
