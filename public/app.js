@@ -1,10 +1,10 @@
 let sets = {};
 //----------------------------------------------------------------GET settings
-
+var clicked = false;
 
 let settingrequest = new XMLHttpRequest();
 settingrequest.open('GET', './settings', true);
-settingrequest.onload = function() {
+settingrequest.onload = function () {
   //load settings
   const settings = JSON.parse(this.response);
   sets = settings;
@@ -26,7 +26,7 @@ var s = (sketch) => {
   let chessboard = [];
   let pawns = [];
 
-  sketch.setup = function() {
+  sketch.setup = function () {
     sketch.createCanvas(640, 480);
     sketch.rectMode(RADIUS);
     for (let y = 1; y <= settings.chessRow; y++) {
@@ -48,24 +48,28 @@ var s = (sketch) => {
   }
 
 
-  sketch.draw = function() {
+  sketch.draw = function () {
     for (let i = 0; i < chessboard.length; i++) {
       chessboard[i].show();
-
     }
 
     for (let i = 0; i < pawns.length; i++) {
       pawns[i].show();
-
     }
   }
 
-  sketch.mousePressed = function() {
-    for (let i = 0; i < chessboard.length; i++) {
-      chessboard[i].clicked(sketch.mouseX, sketch.mouseY);
-
+  sketch.mousePressed = function () {
+    if (clicked) {
+      for (let i = 0; i < chessboard.length; i++) {
+        chessboard[i].clicked(sketch.mouseX, sketch.mouseY);
+      }
+    } else {
+      for (let i = 0; i < pawns.length; i++) {
+        pawns[i].clicked(sketch.mouseX, sketch.mouseY);
+      }
     }
   }
+
 
   const ChessRect = class ChessRect {
 
@@ -84,6 +88,7 @@ var s = (sketch) => {
 
       if (distance < rectWidth / 2) {
         this.colorUsed = settings.selectedRectColor;
+
       } else {
         this.colorUsed = this.color;
       }
@@ -101,6 +106,15 @@ var s = (sketch) => {
     show() {
       sketch.fill(this.color);
       sketch.ellipse(this.pos.x * rectWidth, this.pos.y * rectWidth, 20, 20)
+    }
+    clicked(px, py) {
+      let distance = sketch.dist(px, py, this.pos.x * rectWidth, this.pos.y * rectWidth);
+      if (distance < rectWidth / 2) {
+        this.colorUsed = settings.selectedRectColor;
+        clicked = true;
+      } else {
+        this.colorUsed = this.color;
+      }
     }
   }
 }
