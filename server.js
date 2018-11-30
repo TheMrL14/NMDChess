@@ -45,11 +45,15 @@ app.get('/chat', function(req, res) {
 let init = () => {
   app.listen(port, () => console.log(`App listening on port ${port}!`));
   setInterval(function() {
-    socket.emit("clientvalue", {
+    socket.emit("clientvalue1", {
       name: "titertX",
-      value: Math.random() * 10,
+      value: Math.random() * 10
+
+    })
+    socket.emit("clientvalue2", {
       name: "titertY",
-      value: Math.round(Math.random() * 10)
+      value: Math.random() * 10
+
     })
   }, 1000);
 
