@@ -52,7 +52,7 @@ let init = () => {
         "y:" +
         Math.random(),
       name: "titert2",
-      value: "count:" + Math.random()
+      value: "count:" + Math.random() * 100
     })
   }, 1000);
 
