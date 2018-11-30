@@ -50,9 +50,11 @@ let init = () => {
       value: "x:" +
         Math.random() +
         "y:" +
-        Math.random()
+        Math.random(),
+      name: "titert2",
+      value: "count:" + Math.random()
     })
-  }, 5000);
+  }, 1000);
 
 };
 

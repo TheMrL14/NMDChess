@@ -4,7 +4,7 @@ var clicked = false;
 
 let settingrequest = new XMLHttpRequest();
 settingrequest.open('GET', './settings', true);
-settingrequest.onload = function () {
+settingrequest.onload = function() {
   //load settings
   const settings = JSON.parse(this.response);
   sets = settings;
@@ -26,7 +26,7 @@ var s = (sketch) => {
   let chessboard = [];
   let pawns = [];
 
-  sketch.setup = function () {
+  sketch.setup = function() {
     sketch.createCanvas(640, 480);
     sketch.rectMode(RADIUS);
     for (let y = 1; y <= settings.chessRow; y++) {
@@ -48,7 +48,7 @@ var s = (sketch) => {
   }
 
 
-  sketch.draw = function () {
+  sketch.draw = function() {
     for (let i = 0; i < chessboard.length; i++) {
       chessboard[i].show();
     }
@@ -58,7 +58,7 @@ var s = (sketch) => {
     }
   }
 
-  sketch.mousePressed = function () {
+  sketch.mousePressed = function() {
     if (clicked) {
       for (let i = 0; i < chessboard.length; i++) {
         chessboard[i].clicked(sketch.mouseX, sketch.mouseY);
