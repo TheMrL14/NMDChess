@@ -62,7 +62,8 @@ var s = (sketch) => {
 
   sketch.mousePressed = function() {
     for (let i = 0; i < chessboard.length; i++) {
-      chessboard[i].clicked(sketch.mouseX, sketch.mouseY);
+      if ()
+        chessboard[i].clicked(sketch.mouseX, sketch.mouseY);
 
     }
   }

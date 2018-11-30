@@ -52,7 +52,7 @@ init();
 socket.emit("clientvalue", {
   name: "titert",
   value: "x:" +
-    1 +
+    Math.random() +
     "y:" +
-    1
+    Math.random()
 })
