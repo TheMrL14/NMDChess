@@ -47,12 +47,9 @@ let init = () => {
   setInterval(function() {
     socket.emit("clientvalue", {
       name: "titert",
-      value: "x:" +
-        Math.random() +
-        "y:" +
-        Math.random(),
+      value: Math.random() * 10,
       name: "titert2",
-      value: "count:" + Math.random() * 100
+      value: "count:" + Math.round(Math.random() * 100);
     })
   }, 1000);
 
