@@ -46,10 +46,10 @@ let init = () => {
   app.listen(port, () => console.log(`App listening on port ${port}!`));
   setInterval(function() {
     socket.emit("clientvalue", {
-      name: "titert",
+      name: "titertX",
       value: Math.random() * 10,
-      name: "titert2",
-      value: "count:" + Math.round(Math.random() * 100);
+      name: "titertY",
+      value: Math.round(Math.random() * 10)
     })
   }, 1000);
 
