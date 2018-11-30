@@ -1,101 +1,104 @@
-var sets = {};
+let sets = {};
 //----------------------------------------------------------------GET settings
 
 
-var settingrequest = new XMLHttpRequest();
+let settingrequest = new XMLHttpRequest();
 settingrequest.open('GET', './settings', true);
 settingrequest.onload = function() {
   //load settings
-  var settings = JSON.parse(this.response);
+  const settings = JSON.parse(this.response);
   sets = settings;
   //start viz
-  var myp5 = new p5(s, sets.vizID);
+  let myp5 = new p5(s, sets.vizID);
 }
 settingrequest.send();
 init();
 
 function init() {
-  var myp5 = new p5(s, sets.chessId);
+  let myp5 = new p5(s, sets.chessId);
   console.log("done");
 }
 
 
-var s = function(sketch) {
+var s = (sketch) => {
   const settings = sets.sketch;
-  var rectWidth = settings.rectWidth;
-  var chessboard = [];
-  var pawns = [];
+  const rectWidth = settings.rectWidth;
+  let chessboard = [];
+  let pawns = [];
 
   sketch.setup = function() {
     sketch.createCanvas(640, 480);
     sketch.rectMode(RADIUS);
-    for (var y = 1; y <= settings.chessRow; y++) {
-      for (var x = 1; x <= settings.chessRow; x++) {
+    for (let y = 1; y <= settings.chessRow; y++) {
+      for (let x = 1; x <= settings.chessRow; x++) {
         var col;
         if ((x + y + 1) % 2 == 0) {
-          col = "white";
+          col = 255;
         } else {
-          col = "black";
+          col = 0;
         }
-        var chessrect = new ChessRect(sketch.createVector(x, y), col);
+        let chessrect = new ChessRect(sketch.createVector(x, y), col);
         chessboard.push(chessrect)
       }
     }
     console.log(chessboard)
 
-    var newPawn = new pawn(sketch.createVector(5, 1), "gold", "queen");
+    let newPawn = new Pawn(sketch.createVector(5, 1), "gold", "queen");
     pawns.push(newPawn);
   }
 
 
   sketch.draw = function() {
-    for (var i = 0; i < chessboard.length; i++) {
+    for (let i = 0; i < chessboard.length; i++) {
       chessboard[i].show();
 
     }
 
-    for (var i = 0; i < pawns.length; i++) {
+    for (let i = 0; i < pawns.length; i++) {
       pawns[i].show();
 
     }
   }
 
   sketch.mousePressed = function() {
-    for (var i = 0; i < chessboard.length; i++) {
+    for (let i = 0; i < chessboard.length; i++) {
       chessboard[i].clicked(sketch.mouseX, sketch.mouseY);
 
     }
   }
 
-  function ChessRect(pos, color) {
-    this.pos = pos;
-    this.color = color;
-    this.show = function() {
-      sketch.fill(this.color);
-      sketch.rect(pos.x * rectWidth, pos.y * rectWidth, rectWidth / 2, rectWidth / 2);
+  const ChessRect = class ChessRect {
+
+    constructor(pos, col) {
+      this.pos = pos;
+      this.color = col;
+      this.colorUsed = col;
     }
-    this.clicked = function(px, py) {
-      var distance = sketch.dist(px, py, this.pos.x * rectWidth, this.pos.y * rectWidth);
+
+    show() {
+      sketch.fill(this.colorUsed);
+      sketch.rect(this.pos.x * rectWidth, this.pos.y * rectWidth, rectWidth / 2, rectWidth / 2);
+    }
+    clicked(px, py) {
+      let distance = sketch.dist(px, py, this.pos.x * rectWidth, this.pos.y * rectWidth);
 
       if (distance < rectWidth / 2) {
-        this.color = settings.selectedRectColor;
-        sketch.fill(color);
-
-
-
+        this.colorUsed = settings.selectedRectColor;
       } else {
-        this.color = color;
-        sketch.fill(color);
+        this.colorUsed = this.color;
       }
     }
   }
 
-  function pawn(pos, color, type) {
-    this.pos = pos;
-    this.color = color;
-    this.type = type;
+  const Pawn = class Pawn {
 
-    this.show = function() {
+    constructor(pos, color, type) {
+      this.pos = pos;
+      this.color = color;
+      this.type = type;
+    }
+
+    show() {
       sketch.fill(this.color);
       sketch.ellipse(this.pos.x * rectWidth, this.pos.y * rectWidth, 20, 20)
     }
