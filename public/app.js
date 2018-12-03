@@ -25,7 +25,7 @@ var s = (sketch) => {
   const rectWidth = settings.rectWidth;
   let chessboard = [];
   let pawns = [];
-
+  let selectedPawn;
   sketch.setup = function() {
     sketch.createCanvas(640, 480);
     sketch.rectMode(RADIUS);
@@ -63,10 +63,14 @@ var s = (sketch) => {
       for (let i = 0; i < chessboard.length; i++) {
         chessboard[i].clicked(sketch.mouseX, sketch.mouseY);
       }
+
+      selectedPawn = null;
+
     } else {
       for (let i = 0; i < pawns.length; i++) {
         pawns[i].clicked(sketch.mouseX, sketch.mouseY);
       }
+
     }
   }
 
@@ -88,7 +92,8 @@ var s = (sketch) => {
 
       if (distance < rectWidth / 2) {
         this.colorUsed = settings.selectedRectColor;
-
+        selectedPawn.pos = this.pos;
+        clicked = false;
       } else {
         this.colorUsed = this.color;
       }
@@ -110,10 +115,13 @@ var s = (sketch) => {
     clicked(px, py) {
       let distance = sketch.dist(px, py, this.pos.x * rectWidth, this.pos.y * rectWidth);
       if (distance < rectWidth / 2) {
-        this.colorUsed = settings.selectedRectColor;
+
+
+        selectedPawn = this;
         clicked = true;
+
       } else {
-        this.colorUsed = this.color;
+
       }
     }
   }
