@@ -44,7 +44,9 @@ var s = (sketch) => {
     console.log(chessboard)
 
     let newPawn = new Pawn(sketch.createVector(5, 1), "gold", "queen");
+    let newPawn2 = new Pawn(sketch.createVector(6, 1), "gold", "queen");
     pawns.push(newPawn);
+    pawns.push(newPawn2);
   }
 
 
@@ -115,8 +117,6 @@ var s = (sketch) => {
     clicked(px, py) {
       let distance = sketch.dist(px, py, this.pos.x * rectWidth, this.pos.y * rectWidth);
       if (distance < rectWidth / 2) {
-
-
         selectedPawn = this;
         clicked = true;
 
