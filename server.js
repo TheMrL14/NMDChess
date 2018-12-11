@@ -18,15 +18,15 @@ app.get('/', function(req, res) {
 });
 
 app.get('/app', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/app.js'));
+  res.sendFile(path.join(__dirname + '/public/script/app.js'));
 });
 
 app.get('/dataStreamJS', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/dataStream.js'));
+  res.sendFile(path.join(__dirname + '/public/script/dataStream.js'));
 });
 
 app.get('/indexJS', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/index.js'));
+  res.sendFile(path.join(__dirname + '/public/script/index.js'));
 });
 
 app.get('/settings', function(req, res) {
@@ -40,6 +40,11 @@ app.get('/style', function(req, res) {
 app.get('/chat', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/chat.html'));
 });
+
+
+app.use('/icons', express.static(path.join(__dirname, 'public/Icons')))
+
+
 
 
 let init = () => {

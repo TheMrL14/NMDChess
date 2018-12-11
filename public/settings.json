@@ -4,7 +4,21 @@
       "socketURL": "ws://nmd18.herokuapp.com",
       "rectWidth" : 50,
       "chessRow": 8,
-      "selectedRectColor": 100
+      "selectedRectColor": 100,
+      "selectedPawnColor": "brown",
+      "rookB":"/icons/rookB.png",
+      "knightB":"/icons/knightB.png",
+      "bishopB":"/icons/bishopB.png",
+      "knightB":"/icons/knightB.png",
+      "pawnB":"/icons/pawnB.png",
+      "kingB":"/icons/kingB.png",
+      "queenB":"/icons/queenB.png",
+      "rookW":"/icons/rookW.png",
+      "knightW":"/icons/knightW.png",
+      "bishopW":"/icons/bishopW.png",
+      "knightW":"/icons/knightW.png",
+      "pawnW":"/icons/pawnW.png",
+      "kingW":"/icons/kingW.png",
+      "queenW":"/icons/queenW.png"
     }
-
 }
