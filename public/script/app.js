@@ -9,7 +9,7 @@ settingrequest.onload = function() {
   const settings = JSON.parse(this.response);
   sets = settings;
   //start viz
-
+  let myp5 = new p5(s, sets.vizID);
 }
 settingrequest.send();
 init();
