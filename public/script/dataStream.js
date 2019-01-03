@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
       pos: choice
     };
 
-    fetch('http://localhost:3000/poll', {
+    fetch('./poll', {
         method: 'post',
         body: JSON.stringify(data),
         headers: new Headers({
