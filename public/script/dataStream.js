@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   });
 
-  fetch('http://localhost:3000/poll')
+  fetch('./poll')
     .then(res => res.json())
     .then(data => {
       const votes = data.votes;
