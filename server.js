@@ -1,16 +1,24 @@
 //hier gebeurt de server shit
 
 
-
-
+//var Pusher = require('pusher');
 const express = require('express');
+const bodyparser = require('body-parser');
 const io = require('socket.io-client');
 const app = express()
 const port = process.env.PORT || 3000;
 const path = require("path");
+const cors = require('cors');
+
+//DB Config
+require('./config/db');
+
+
 const socket = io.connect('ws://nmd18.herokuapp.com', {
   reconnect: true
 });
+
+const poll = require('./routes/poll');
 
 
 app.get('/', function(req, res) {
@@ -44,10 +52,20 @@ app.get('/chat', function(req, res) {
 
 app.use('/icons', express.static(path.join(__dirname, 'public/Icons')))
 
+app.use(bodyparser.json());
+
+app.use(bodyparser.urlencoded({
+  extended: true
+}));
+
+app.use(cors());
+
+app.use('/poll', poll);
 
 
 
 let init = () => {
+
   app.listen(port, () => console.log(`App listening on port ${port}!`));
   setInterval(function() {
     socket.emit("clientvalue", {

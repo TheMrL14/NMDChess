@@ -5,17 +5,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"> </script>
   <script src="./app"></script>
+  <script src="./dataStreamJS"></script>
+
 
   <title>Chat</title>
 </head>
 
 <body>
-  <div id="twitch-embed"></div>
+  <div class="container">
+    <p>vote here</p>
+
+    <form id="vote-form">
+      <p>
+        <label>
+          <input type="radio" name="pos" id="option1" value="option1">
+          <span>1</span>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input type="radio" name="pos" id="option2" value="option2">
+          <span>2</span>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input type="radio" name="pos" id="option3" value="option3">
+          <span>3</span>
+        </label>
+      </p>
+      <input type="submit" value="Vote" class="btn">
+    </form>
+  </div>
+  <!-- <div id="twitch-embed">
+  </div>
 
 
   <script src="https://embed.twitch.tv/embed/v1.js"></script>
@@ -29,10 +61,9 @@
       height: 480,
       channel: user
     });
-  </script>
+  </script> -->
 
-
-  <div id="chessBoard"></div>
+  <div <div id="chessBoard"></div>
 </body>
 
 </html>

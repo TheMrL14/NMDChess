@@ -16,7 +16,7 @@ init();
 
 function init() {
   let myp5 = new p5(s, sets.chessId);
-  console.log("done");
+
 }
 
 
