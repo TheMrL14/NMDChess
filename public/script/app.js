@@ -1,6 +1,7 @@
 let sets = {};
 //----------------------------------------------------------------GET settings
 var clicked = false;
+var locked = false;
 
 let settingrequest = new XMLHttpRequest();
 settingrequest.open('GET', './settings', true);
@@ -9,7 +10,7 @@ settingrequest.onload = function() {
   const settings = JSON.parse(this.response);
   sets = settings;
   //start viz
-  let myp5 = new p5(s, sets.vizID);
+  let myp5 = new p5(s, sets.chessId);
 }
 settingrequest.send();
 init();
@@ -26,7 +27,7 @@ var s = (sketch) => {
   let chessboard = [];
   let pawns = [];
   let selectedPawn;
-
+  let pollItem = "";
   let setupPawnsB = [];
   let setupPawnsW = [];
 
@@ -109,21 +110,60 @@ var s = (sketch) => {
   }
 
   sketch.mousePressed = function() {
-    if (clicked) {
-      for (let i = 0; i < chessboard.length; i++) {
-        chessboard[i].clicked(sketch.mouseX, sketch.mouseY);
+    if (!locked) {
+      if (clicked) { //-----------------------------------------------------move pawn
+        for (let i = 0; i < chessboard.length; i++) {
+          chessboard[i].clicked(sketch.mouseX, sketch.mouseY);
+
+        }
+
+        selectedPawn = null;
+
+      } else {
+        for (let i = 0; i < pawns.length; i++) { //-----------------------------------------------------select pawn
+          pawns[i].clicked(sketch.mouseX, sketch.mouseY);
+
+        }
+
       }
-
-      selectedPawn = null;
-
-    } else {
-      for (let i = 0; i < pawns.length; i++) {
-        pawns[i].clicked(sketch.mouseX, sketch.mouseY);
-      }
-
     }
   }
 
+
+  var sendToDB = (pos) => {
+    let choice = pos
+
+    if (items.length == 0) {
+      // const data = {
+      //   pos: choice
+      // };
+      // console.log(data)
+      // fetch('./pollItems', {
+      //     method: 'post',
+      //     body: JSON.stringify(data),
+      //     headers: new Headers({
+      //       'Content-Type': 'application/json'
+      //     })
+      //   }).then(res => res.json())
+      //   .catch(err => console.log(err));
+    }
+    if ($.inArray(choice, arrayOfPos) > -1) {
+      console.log("bestaat al");
+    } else {
+      console.log("bestaat nog niet");
+      const data = {
+        pos: choice
+      };
+      fetch('./pollItems', {
+          method: 'post',
+          body: JSON.stringify(data),
+          headers: new Headers({
+            'Content-Type': 'application/json'
+          })
+        }).then(res => res.json())
+        .catch(err => console.log(err));
+    }
+  }
 
   const ChessRect = class ChessRect {
 
@@ -144,6 +184,10 @@ var s = (sketch) => {
         this.colorUsed = settings.selectedRectColor;
         selectedPawn.pos = this.pos;
         clicked = false;
+        pollItem += "X" + String(this.pos.x) + " Y" + String(this.pos.y);
+        console.log(pollItem);
+        sendToDB(pollItem);
+        locked == true;
       } else {
         this.colorUsed = this.color;
       }
@@ -169,10 +213,9 @@ var s = (sketch) => {
       this.colorUsed = settings.selectedPawnColor;
       let distance = sketch.dist(px, py, this.pos.x * rectWidth, this.pos.y * rectWidth);
       if (distance < rectWidth / 2) {
-        console.log(this);
         selectedPawn = this;
         clicked = true;
-
+        pollItem = "X" + String(this.pos.x) + " Y" + String(this.pos.y) + " -> ";
       } else {
         this.colorUsed = this.color;
       }

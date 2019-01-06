@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-const Vote = require('../models/Vote.js');
-
+const PollItem = require('../models/PollItem.js');
 
 
 const Pusher = require('pusher');
@@ -16,26 +15,25 @@ const pusher = new Pusher({
 });
 
 router.get("/", (reg, res) => {
-  Vote.find()
-    .then(votes => res.json({
+  PollItem.find()
+    .then(PollItems => res.json({
       succes: true,
-      votes: votes
+      PollItems: PollItems
     }));
 
 });
 
 router.post("/", (req, res) => {
-  const newVote = {
+  const newPollItem = {
     pos: req.body.pos,
     points: 1,
 
   }
 
-  new Vote(newVote).save()
-    .then(vote => {
-      pusher.trigger('my-poll', 'my-vote', {
-        "points": parseInt(vote.points),
-        "pos": vote.pos
+  new PollItem(newPollItem).save()
+    .then(PollItem => {
+      pusher.trigger('my-poll', 'my-PollItem', {
+        "pos": PollItem.pos
       });
 
       return res.json({

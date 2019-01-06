@@ -19,6 +19,7 @@ const socket = io.connect('ws://nmd18.herokuapp.com', {
 });
 
 const poll = require('./routes/poll');
+const pollItems = require('./routes/pollItems');
 
 
 app.get('/', function(req, res) {
@@ -29,8 +30,12 @@ app.get('/app', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/script/app.js'));
 });
 
-app.get('/dataStreamJS', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/script/dataStream.js'));
+app.get('/pollVotesDB', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/script/pollVotesDB.js'));
+});
+
+app.get('/pollItemsDB', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/script/pollItemsDB.js'));
 });
 
 app.get('/indexJS', function(req, res) {
@@ -61,6 +66,7 @@ app.use(bodyparser.urlencoded({
 app.use(cors());
 
 app.use('/poll', poll);
+app.use('/pollItems', pollItems);
 
 
 

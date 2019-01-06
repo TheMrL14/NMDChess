@@ -14,7 +14,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"> </script>
   <script src="./app"></script>
-  <script src="./dataStreamJS"></script>
+  <script src="./pollItemsDB"></script>
+  <script src="./pollVotesDB"></script>
 
 
   <title>Chat</title>
@@ -25,24 +26,9 @@
     <p>vote here</p>
 
     <form id="vote-form">
-      <p>
-        <label>
-          <input type="radio" name="pos" id="option1" value="option1">
-          <span>1</span>
-        </label>
-      </p>
-      <p>
-        <label>
-          <input type="radio" name="pos" id="option2" value="option2">
-          <span>2</span>
-        </label>
-      </p>
-      <p>
-        <label>
-          <input type="radio" name="pos" id="option3" value="option3">
-          <span>3</span>
-        </label>
-      </p>
+      <div id="items">
+        <p><label><input type="radio" name="pos" id="option0" id="option0"><span>X4 Y2 -> X5 Y2</span></label> </p>
+      </div>
       <input type="submit" value="Vote" class="btn">
     </form>
   </div>
@@ -63,7 +49,7 @@
     });
   </script> -->
 
-  <div <div id="chessBoard"></div>
+  <div id="chessBoard"></div>
 </body>
 
 </html>
