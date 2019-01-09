@@ -3,6 +3,10 @@ let arrayOfPos = [];
 
 document.addEventListener("DOMContentLoaded", function() {
 
+  // setInterval(function() {
+  //   doIt();
+  // }, 1000);
+
   doIt();
   //--------------------------------------------------------------------------POST Items
   const testBtn = document.getElementById("chessBoard");
@@ -43,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       if (i.label == data.pos) {
         i.count++;
+        doIt();
         return i;
       } else {
         return i;

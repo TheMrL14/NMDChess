@@ -14,7 +14,7 @@ const pusher = new Pusher({
   encrypted: true
 });
 
-router.get("/", (reg, res) => {
+router.get("/", (req, res) => {
   PollItem.find()
     .then(PollItems => res.json({
       succes: true,
@@ -22,6 +22,24 @@ router.get("/", (reg, res) => {
     }));
 
 });
+
+router.route('/:id')
+  .delete((req, res) => {
+    console.log(req.params.id);
+    PollItem.findById(req.params.id, (err, task) => {
+      console.log(task);
+      if (err) {
+        console.log('DELETE Error: ' + err);
+        res.status(500).send('Error');
+      } else if (task) {
+        task.remove(() => {
+          res.status(200).json(task);
+        });
+      } else {
+        res.status(404).send('Not found');
+      }
+    });
+  });
 
 router.post("/", (req, res) => {
   const newPollItem = {
@@ -43,6 +61,9 @@ router.post("/", (req, res) => {
 
 
     });
-})
+});
+
+
+
 
 module.exports = router;

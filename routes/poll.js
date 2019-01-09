@@ -31,6 +31,7 @@ router.post("/", (req, res) => {
 
   }
 
+
   new Vote(newVote).save()
     .then(vote => {
       pusher.trigger('my-poll', 'my-vote', {
@@ -45,6 +46,23 @@ router.post("/", (req, res) => {
 
 
     });
-})
+});
+
+router.delete((req, res) => {
+  Task.findById("1", (err, task) => {
+    if (err) {
+      console.log('DELETE Error: ' + err);
+      res.status(500).send('Error');
+    } else if (task) {
+      task.remove(() => {
+        res.status(200).json(task);
+      });
+    } else {
+      res.status(404).send('Not found');
+    }
+  });
+});
+
+
 
 module.exports = router;

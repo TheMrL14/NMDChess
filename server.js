@@ -54,6 +54,14 @@ app.get('/chat', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/chat.html'));
 });
 
+app.get('/user', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/user.html'));
+});
+
+app.get('/userScript', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/script/user.js'));
+});
+
 
 app.use('/icons', express.static(path.join(__dirname, 'public/Icons')))
 
