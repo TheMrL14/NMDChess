@@ -126,6 +126,8 @@ var s = (sketch) => {
         }
 
       }
+    } else {
+      console.log("locked")
     }
   }
 
@@ -133,20 +135,6 @@ var s = (sketch) => {
   var sendToDB = (pos) => {
     let choice = pos
 
-    if (items.length == 0) {
-      // const data = {
-      //   pos: choice
-      // };
-      // console.log(data)
-      // fetch('./pollItems', {
-      //     method: 'post',
-      //     body: JSON.stringify(data),
-      //     headers: new Headers({
-      //       'Content-Type': 'application/json'
-      //     })
-      //   }).then(res => res.json())
-      //   .catch(err => console.log(err));
-    }
     if ($.inArray(choice, arrayOfPos) > -1) {
       console.log("bestaat al");
     } else {
@@ -181,13 +169,15 @@ var s = (sketch) => {
       let distance = sketch.dist(px, py, this.pos.x * rectWidth, this.pos.y * rectWidth);
 
       if (distance < rectWidth / 2) {
+        locked = true;
+        console.log(locked);
         this.colorUsed = settings.selectedRectColor;
         selectedPawn.pos = this.pos;
         clicked = false;
         pollItem += "X" + String(this.pos.x) + " Y" + String(this.pos.y);
         console.log(pollItem);
         sendToDB(pollItem);
-        locked == true;
+
       } else {
         this.colorUsed = this.color;
       }

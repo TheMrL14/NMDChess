@@ -6,10 +6,22 @@ document.addEventListener("DOMContentLoaded", function() {
     fetch('./pollItems')
       .then(res => res.json())
       .then(data => {
-        console.log(data.PollItems);
+        console.log(data.PollItems[0]);
         for (var i = 0; i < data.PollItems.length; i++) {
-          console
+
           fetch('./pollItems/' + data.PollItems[i]._id, {
+            method: "delete"
+          }).then(console.log());
+        }
+      });
+
+    fetch('./poll')
+      .then(res => res.json())
+      .then(data => {
+        console.log(data.votes);
+        for (var i = 0; i < data.votes.length; i++) {
+
+          fetch('./poll/' + data.votes[i]._id, {
             method: "delete"
           }).then(console.log());
         }

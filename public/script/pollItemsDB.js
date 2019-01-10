@@ -1,11 +1,13 @@
 let items = 0;
 let arrayOfPos = [];
 
+let counterOfPoll = 0;
+
 document.addEventListener("DOMContentLoaded", function() {
 
-  // setInterval(function() {
-  //   doIt();
-  // }, 1000);
+  setInterval(function() {
+    doIt();
+  }, 100);
 
   doIt();
   //--------------------------------------------------------------------------POST Items
@@ -37,17 +39,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-  var pusher = new Pusher('5110e29e563becf91c35', {
+  let pusher = new Pusher('5110e29e563becf91c35', {
     cluster: 'eu',
     forceTLS: true
   });
-  var channel = pusher.subscribe('my-poll');
+  let channel = pusher.subscribe('my-poll');
   channel.bind('my-vote', function(data) {
+    doIt();
     dataPoints = dataPoints.map(i => {
 
       if (i.label == data.pos) {
         i.count++;
-        doIt();
+
         return i;
       } else {
         return i;
@@ -56,8 +59,13 @@ document.addEventListener("DOMContentLoaded", function() {
     })
   });
 
-
+  let channel2 = pusher.subscribe('my-poll');
+  channel2.bind('my-PollItem', function(data) {
+    doIt();
+  });
 });
+
+
 
 function doIt() {
   //------------------------------------------------------------------------------GET items
@@ -65,6 +73,14 @@ function doIt() {
     .then(res => res.json())
     .then(data => {
       items = data.PollItems;
+      if (items.length >= counterOfPoll) {
+        counterOfPoll = items.length;
+        console.log(counterOfPoll);
+      } else {
+        console.log("gereset");
+        counterOfPoll = 0;
+        locked = false;
+      }
       document.getElementById('items').innerHTML = "";
       for (let i = 0; i < items.length; i++) {
         arrayOfPos.push(items[i].pos);
@@ -98,9 +114,5 @@ function doIt() {
 
       voteCounts = votes.reduce((acc, vote) => (
         (acc[vote.pos] = (acc[vote.pos] || 0) + parseInt(vote.points)), acc), {});
-      console.log(voteCounts);
-
-
-
     });
 }
